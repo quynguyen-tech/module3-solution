@@ -4,126 +4,73 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Module 3 - Solution</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+    <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
+
+    <script>
+      // initialize Account Kit with CSRF protection
+      AccountKit_OnInteractive = function() {
+        AccountKit.init({
+          appId: '450640655668044',
+          state: '55262304ad4a1e1d4eb78fa2d40e8c75',
+          version: 'v1.1',
+          fbAppEventsEnabled: true,
+          redirect: 'https://quynguyen-tech.github.io/module3-solution/'
+        })
+      }
+
+      // login callback
+      function loginCallback(response) {
+        if (response.status === 'PARTIALLY_AUTHENTICATED') {
+          var code = response.code
+          var csrf = response.state
+          // Send code to server to exchange for access token
+        } else if (response.status === 'NOT_AUTHENTICATED') {
+          // handle authentication failure
+        } else if (response.status === 'BAD_PARAMS') {
+          // handle bad parameters
+        }
+      }
+
+      // phone form submission handler
+      function smsLogin() {
+        var countryCode = document.getElementById('country_code').value
+        var phoneNumber = document.getElementById('phone_number').value
+        AccountKit.login(
+          'PHONE',
+          { countryCode: countryCode, phoneNumber: phoneNumber }, // will use default values if not specified
+          loginCallback
+        )
+      }
+
+      // email form submission handler
+      function emailLogin() {
+        var emailAddress = document.getElementById('email').value
+        AccountKit.login('EMAIL', { emailAddress: emailAddress }, loginCallback)
+      }
+    </script>
   </head>
   <body>
-    <!--Navbar-->
-    <nav
-      id="top"
-      class="navbar navbar-expand-lg navbar-light bg-white shadow-sm"
-    >
-      <!-- Navbar brand -->
-      <a class="navbar-brand" href="#">Food, LLC</a>
+    <input value="+1" id="country_code" />
+    <input placeholder="phone number" id="phone_number" />
+    <button onclick="smsLogin();">Login via SMS</button>
+    <div>OR</div>
+    <input placeholder="email" id="email" />
+    <button onclick="emailLogin();">Login via Email</button>
 
-      <!-- Collapse button -->
-      <button
-        class="navbar-toggler d-md-none"
-        type="button"
-        data-toggle="collapse"
-        data-target="#basicExampleNav"
-        aria-controls="basicExampleNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <form id="login_success" method="post" action="/login_success.php">
+      <input id="csrf" type="hidden" name="csrf" />
+      <input id="code" type="hidden" name="code" />
+    </form>
 
-      <!-- Collapsible content -->
-      <div class="collapse navbar-collapse" id="basicExampleNav">
-        <!-- Links -->
-        <ul class="navbar-nav ml-auto text-center d-md-none">
-          <li class="nav-item active">
-            <a class="nav-link" href="#Chicken"
-              >Chicken
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#Beef">Beef</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#Sushi">Sushi</a>
-          </li>
-        </ul>
-        <!-- Links -->
-      </div>
-      <!-- Collapsible content -->
-    </nav>
-    <main>
-      <h1 class="text-center mb-5 mt-5">Our Menu</h1>
-      <div class="container-fluid content-section">
-        <div class="row">
-          <section
-            id="#chicken"
-            class="col-xs-12 col-md-6 col-lg-4 p-0 p-lg-3 mb-3"
-          >
-            <div class="bg-white shadow-sm p-3 mr-md-2 mr-lg-0">
-              <h3 class="text-center mt-2">Chicken</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                fermentum diam id sapien pellentesque faucibus a id odio. Nulla
-                feugiat dolor sed mauris pharetra, nec luctus purus mattis. Ut
-                mattis iaculis consequat. Aenean scelerisque pulvinar molestie.
-                Cras interdum blandit eros, eu finibus nulla pharetra sed.
-                Maecenas odio lorem, pretium ac semper in, sagittis sed velit.
-                Etiam aliquam elit sed enim finibus aliquet. Pellentesque
-                convallis in velit eget tincidunt. Phasellus tortor leo, aliquam
-                sit amet iaculis at, iaculis ac eros. Sed posuere nunc eu
-                ullamcorper interdum. Proin erat dolor, pharetra ut placerat ac,
-                pellentesque a lectus. <br />
-                <a class="d-md-none" href="#top">Scroll to top</a>
-              </p>
-            </div>
-          </section>
-          <section id="Beef" class="col-xs-12 col-md-6 col-lg-4 p-0 p-lg-3 mb-3">
-            <div class="bg-white shadow-sm p-3 ml-md-2 ml-lg-0">
-              <h3 class="text-center mt-2">Beef</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                fermentum diam id sapien pellentesque faucibus a id odio. Nulla
-                feugiat dolor sed mauris pharetra, nec luctus purus mattis. Ut
-                mattis iaculis consequat. Aenean scelerisque pulvinar molestie.
-                Cras interdum blandit eros, eu finibus nulla pharetra sed.
-                Maecenas odio lorem, pretium ac semper in, sagittis sed velit.
-                Etiam aliquam elit sed enim finibus aliquet. Pellentesque
-                convallis in velit eget tincidunt. Phasellus tortor leo, aliquam
-                sit amet iaculis at, iaculis ac eros. Sed posuere nunc eu
-                ullamcorper interdum. Proin erat dolor, pharetra ut placerat ac,
-                pellentesque a lectus. <br />
-                <a class="d-md-none" href="#top">Scroll to top</a>
-              </p>
-            </div>
-          </section>
-          <section id="Sushi" class="col-xs-12 col-md-12 col-lg-4 p-0 p-lg-3 mb-3">
-            <div class="bg-white shadow-sm p-3">
-              <h3 class="text-center mt-2">Sushi</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                fermentum diam id sapien pellentesque faucibus a id odio. Nulla
-                feugiat dolor sed mauris pharetra, nec luctus purus mattis. Ut
-                mattis iaculis consequat. Aenean scelerisque pulvinar molestie.
-                Cras interdum blandit eros, eu finibus nulla pharetra sed.
-                Maecenas odio lorem, pretium ac semper in, sagittis sed velit.
-                Etiam aliquam elit sed enim finibus aliquet. Pellentesque
-                convallis in velit eget tincidunt. Phasellus tortor leo, aliquam
-                sit amet iaculis at, iaculis ac eros. Sed posuere nunc eu
-                ullamcorper interdum. Proin erat dolor, pharetra ut placerat ac,
-                pellentesque a lectus. <br />
-                <a class="d-md-none" href="#top">Scroll to top</a>
-              </p>
-            </div>
-          </section>
-        </div>
-      </div>
-    </main>
-    <!--/.Navbar-->
+    <script>
+      function loginCallback(response) {
+        if (response.status === 'PARTIALLY_AUTHENTICATED') {
+          document.getElementById('code').value = response.code
+          document.getElementById('csrf').value = response.state
+          document.getElementById('login_success').submit()
+        }
+      }
+    </script>
   </body>
 </html>
