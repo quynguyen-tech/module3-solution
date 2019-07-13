@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 var csrf_guid = Guid.raw()
-const account_kit_api_version = 'v1.1'
-const app_id = '450640655668044'
+const account_kit_api_version = 'v1.0'
+const app_id = '2318830295005855'
 const app_secret = 'e01f9d7ef3627903ddcad37a33c28719'
 const me_endpoint_base_url = 'https://graph.accountkit.com/v1.1/me'
 const token_exchange_base_url = 'https://graph.accountkit.com/v1.1/access_token'
