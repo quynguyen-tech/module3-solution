@@ -1,129 +1,508 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Module 3 - Solution</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>BeU</title>
+    <meta name="description" content="Latest updates and statistic charts" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link rel="manifest" href="/public/manifest.json" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/public/images/favicon-32x32.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700"
+      rel="stylesheet"
+      async
+    />
+    <link async rel="stylesheet" href="/public/css/ionicons.min.css" />
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      href="https://unpkg.com/react-instantsearch-theme-algolia@4.0.0/style.min.css"
     />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <!--Navbar-->
-    <nav
-      id="top"
-      class="navbar navbar-expand-lg navbar-light bg-white shadow-sm"
-    >
-      <!-- Navbar brand -->
-      <a class="navbar-brand" href="#">Food, LLC</a>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+      integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+      crossorigin=""
+      async
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <link href="/public/css/main.8fece1f0.css" rel="stylesheet"></head>
 
-      <!-- Collapse button -->
-      <button
-        class="navbar-toggler d-md-none"
-        type="button"
-        data-toggle="collapse"
-        data-target="#basicExampleNav"
-        aria-controls="basicExampleNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <body
+    className="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"
+  >
+    <!-- begin:: Page -->
+    <div id="root"></div>
+    <!-- end:: Page -->
+    <script src="../public/lib/feather-icons/feather.min.js"></script>
+    <script src="../public/lib/jquery/jquery.min.js"></script>
+    <script src="../public/lib/jquery.flot/jquery.flot.js"></script>
+    <script src="../public/lib/jquery.flot/jquery.flot.stack.js"></script>
+    <script src="../public/lib/jquery.flot/jquery.flot.resize.js"></script>
+    <script src="../public/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../public/lib/jqvmap/jquery.vmap.min.js"></script>
+    <script src="../public/lib/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src="../public/js/dashforge.js"></script>
+    <script src="../public/js/dashforge.aside.js"></script>
+    <script src="../public/js/dashforge.sampledata.js"></script>
+    <script src="../public/lib/chart.js/Chart.bundle.min.js"></script>
+    <script>
+      $(function() {
+        'use strict'
 
-      <!-- Collapsible content -->
-      <div class="collapse navbar-collapse" id="basicExampleNav">
-        <!-- Links -->
-        <ul class="navbar-nav ml-auto text-center d-md-none">
-          <li class="nav-item active">
-            <a class="nav-link" href="#Chicken"
-              >Chicken
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#Beef">Beef</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#Sushi">Sushi</a>
-          </li>
-        </ul>
-        <!-- Links -->
-      </div>
-      <!-- Collapsible content -->
-    </nav>
-    <main>
-      <h1 class="text-center mb-5 mt-5">Our Menu</h1>
-      <section class="container-fluid content-section">
-        <div class="row">
-          <div
-            id="#chicken"
-            class="col-xs-12 col-md-6 col-lg-4 p-0 p-lg-3 mb-3"
-          >
-            <div class="bg-white shadow-sm p-3 mr-md-2 mr-lg-0">
-              <h3 class="text-center mt-2">Chicken</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                fermentum diam id sapien pellentesque faucibus a id odio. Nulla
-                feugiat dolor sed mauris pharetra, nec luctus purus mattis. Ut
-                mattis iaculis consequat. Aenean scelerisque pulvinar molestie.
-                Cras interdum blandit eros, eu finibus nulla pharetra sed.
-                Maecenas odio lorem, pretium ac semper in, sagittis sed velit.
-                Etiam aliquam elit sed enim finibus aliquet. Pellentesque
-                convallis in velit eget tincidunt. Phasellus tortor leo, aliquam
-                sit amet iaculis at, iaculis ac eros. Sed posuere nunc eu
-                ullamcorper interdum. Proin erat dolor, pharetra ut placerat ac,
-                pellentesque a lectus. <br />
-                <a class="d-md-none" href="#top">Scroll to top</a>
-              </p>
-            </div>
-          </div>
-          <div id="Beef" class="col-xs-12 col-md-6 col-lg-4 p-0 p-lg-3 mb-3">
-            <div class="bg-white shadow-sm p-3 ml-md-2 ml-lg-0">
-              <h3 class="text-center mt-2">Beef</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                fermentum diam id sapien pellentesque faucibus a id odio. Nulla
-                feugiat dolor sed mauris pharetra, nec luctus purus mattis. Ut
-                mattis iaculis consequat. Aenean scelerisque pulvinar molestie.
-                Cras interdum blandit eros, eu finibus nulla pharetra sed.
-                Maecenas odio lorem, pretium ac semper in, sagittis sed velit.
-                Etiam aliquam elit sed enim finibus aliquet. Pellentesque
-                convallis in velit eget tincidunt. Phasellus tortor leo, aliquam
-                sit amet iaculis at, iaculis ac eros. Sed posuere nunc eu
-                ullamcorper interdum. Proin erat dolor, pharetra ut placerat ac,
-                pellentesque a lectus. <br />
-                <a class="d-md-none" href="#top">Scroll to top</a>
-              </p>
-            </div>
-          </div>
-          <div id="Sushi" class="col-xs-12 col-md-12 col-lg-4 p-0 p-lg-3 mb-3">
-            <div class="bg-white shadow-sm p-3">
-              <h3 class="text-center mt-2">Sushi</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                fermentum diam id sapien pellentesque faucibus a id odio. Nulla
-                feugiat dolor sed mauris pharetra, nec luctus purus mattis. Ut
-                mattis iaculis consequat. Aenean scelerisque pulvinar molestie.
-                Cras interdum blandit eros, eu finibus nulla pharetra sed.
-                Maecenas odio lorem, pretium ac semper in, sagittis sed velit.
-                Etiam aliquam elit sed enim finibus aliquet. Pellentesque
-                convallis in velit eget tincidunt. Phasellus tortor leo, aliquam
-                sit amet iaculis at, iaculis ac eros. Sed posuere nunc eu
-                ullamcorper interdum. Proin erat dolor, pharetra ut placerat ac,
-                pellentesque a lectus. <br />
-                <a class="d-md-none" href="#top">Scroll to top</a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-    <!--/.Navbar-->
-  </body>
+        var plot = $.plot(
+          '#flotChart',
+          [
+            {
+              data: df3,
+              color: '#69b2f8'
+            },
+            {
+              data: df1,
+              color: '#d1e6fa'
+            },
+            {
+              data: df2,
+              color: '#d1e6fa',
+              lines: {
+                fill: false,
+                lineWidth: 1.5
+              }
+            }
+          ],
+          {
+            series: {
+              stack: 0,
+              shadowSize: 0,
+              lines: {
+                show: true,
+                lineWidth: 0,
+                fill: 1
+              }
+            },
+            grid: {
+              borderWidth: 0,
+              aboveData: true
+            },
+            yaxis: {
+              show: false,
+              min: 0,
+              max: 350
+            },
+            xaxis: {
+              show: true,
+              ticks: [
+                [0, ''],
+                [8, 'Jan'],
+                [20, 'Feb'],
+                [32, 'Mar'],
+                [44, 'Apr'],
+                [56, 'May'],
+                [68, 'Jun'],
+                [80, 'Jul'],
+                [92, 'Aug'],
+                [104, 'Sep'],
+                [116, 'Oct'],
+                [128, 'Nov'],
+                [140, 'Dec']
+              ],
+              color: 'rgba(255,255,255,.2)'
+            }
+          }
+        )
+
+        $.plot(
+          '#flotChart2',
+          [
+            {
+              data: [
+                [0, 55],
+                [1, 38],
+                [2, 20],
+                [3, 70],
+                [4, 50],
+                [5, 15],
+                [6, 30],
+                [7, 50],
+                [8, 40],
+                [9, 55],
+                [10, 60],
+                [11, 40],
+                [12, 32],
+                [13, 17],
+                [14, 28],
+                [15, 36],
+                [16, 53],
+                [17, 66],
+                [18, 58],
+                [19, 46]
+              ],
+              color: '#69b2f8'
+            },
+            {
+              data: [
+                [0, 80],
+                [1, 80],
+                [2, 80],
+                [3, 80],
+                [4, 80],
+                [5, 80],
+                [6, 80],
+                [7, 80],
+                [8, 80],
+                [9, 80],
+                [10, 80],
+                [11, 80],
+                [12, 80],
+                [13, 80],
+                [14, 80],
+                [15, 80],
+                [16, 80],
+                [17, 80],
+                [18, 80],
+                [19, 80]
+              ],
+              color: '#f0f1f5'
+            }
+          ],
+          {
+            series: {
+              stack: 0,
+              bars: {
+                show: true,
+                lineWidth: 0,
+                barWidth: 0.5,
+                fill: 1
+              }
+            },
+            grid: {
+              borderWidth: 0,
+              borderColor: '#edeff6'
+            },
+            yaxis: {
+              show: false,
+              max: 80
+            },
+            xaxis: {
+              ticks: [
+                [0, 'Jan'],
+                [4, 'Feb'],
+                [8, 'Mar'],
+                [12, 'Apr'],
+                [16, 'May'],
+                [19, 'Jun']
+              ],
+              color: '#fff'
+            }
+          }
+        )
+
+        $.plot(
+          '#flotChart3',
+          [
+            {
+              data: df4,
+              color: '#9db2c6'
+            }
+          ],
+          {
+            series: {
+              shadowSize: 0,
+              lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: { colors: [{ opacity: 0 }, { opacity: 0.5 }] }
+              }
+            },
+            grid: {
+              borderWidth: 0,
+              labelMargin: 0
+            },
+            yaxis: {
+              show: false,
+              min: 0,
+              max: 60
+            },
+            xaxis: { show: false }
+          }
+        )
+
+        $.plot(
+          '#flotChart4',
+          [
+            {
+              data: df5,
+              color: '#9db2c6'
+            }
+          ],
+          {
+            series: {
+              shadowSize: 0,
+              lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: { colors: [{ opacity: 0 }, { opacity: 0.5 }] }
+              }
+            },
+            grid: {
+              borderWidth: 0,
+              labelMargin: 0
+            },
+            yaxis: {
+              show: false,
+              min: 0,
+              max: 80
+            },
+            xaxis: { show: false }
+          }
+        )
+
+        $.plot(
+          '#flotChart5',
+          [
+            {
+              data: df6,
+              color: '#9db2c6'
+            }
+          ],
+          {
+            series: {
+              shadowSize: 0,
+              lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: { colors: [{ opacity: 0 }, { opacity: 0.5 }] }
+              }
+            },
+            grid: {
+              borderWidth: 0,
+              labelMargin: 0
+            },
+            yaxis: {
+              show: false,
+              min: 0,
+              max: 80
+            },
+            xaxis: { show: false }
+          }
+        )
+
+        $.plot(
+          '#flotChart6',
+          [
+            {
+              data: df4,
+              color: '#9db2c6'
+            }
+          ],
+          {
+            series: {
+              shadowSize: 0,
+              lines: {
+                show: true,
+                lineWidth: 2,
+                fill: true,
+                fillColor: { colors: [{ opacity: 0 }, { opacity: 0.5 }] }
+              }
+            },
+            grid: {
+              borderWidth: 0,
+              labelMargin: 0
+            },
+            yaxis: {
+              show: false,
+              min: 0,
+              max: 60
+            },
+            xaxis: { show: false }
+          }
+        )
+
+        $('#vmap').vectorMap({
+          map: 'usa_en',
+          showTooltip: true,
+          backgroundColor: '#fff',
+          color: '#d1e6fa',
+          colors: {
+            fl: '#69b2f8',
+            ca: '#69b2f8',
+            tx: '#69b2f8',
+            wy: '#69b2f8',
+            ny: '#69b2f8'
+          },
+          selectedColor: '#00cccc',
+          enableZoom: false,
+          borderWidth: 1,
+          borderColor: '#fff',
+          hoverOpacity: 0.85
+        })
+
+        var ctxLabel = ['6am', '10am', '1pm', '4pm', '7pm', '10pm']
+        var ctxData1 = [20, 60, 50, 45, 50, 60]
+        var ctxData2 = [10, 40, 30, 40, 55, 25]
+
+        // Bar chart
+        var ctx1 = document.getElementById('chartBar1').getContext('2d')
+        new Chart(ctx1, {
+          type: 'horizontalBar',
+          data: {
+            labels: ctxLabel,
+            datasets: [
+              {
+                data: ctxData1,
+                backgroundColor: '#69b2f8'
+              },
+              {
+                data: ctxData2,
+                backgroundColor: '#d1e6fa'
+              }
+            ]
+          },
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+              display: false,
+              labels: {
+                display: false
+              }
+            },
+            scales: {
+              yAxes: [
+                {
+                  gridLines: {
+                    display: false
+                  },
+                  ticks: {
+                    display: false,
+                    beginAtZero: true,
+                    fontSize: 10,
+                    fontColor: '#182b49'
+                  }
+                }
+              ],
+              xAxes: [
+                {
+                  gridLines: {
+                    display: true,
+                    color: '#eceef4'
+                  },
+                  barPercentage: 0.6,
+                  ticks: {
+                    beginAtZero: true,
+                    fontSize: 10,
+                    fontColor: '#8392a5',
+                    max: 80
+                  }
+                }
+              ]
+            }
+          }
+        })
+      })
+    </script>
+    <script>
+      $(function() {
+        // make connection
+        // var socket = io.connect('http://18.212.210.244:8888')
+        const socket = io('http://52.91.188.175:8000/', {
+          transports: ['websocket']
+        })
+        const masterItem = ['monitor', 'supplier', 'goods', 'value']
+
+        var monitor = $('#monitor')
+        var time = $('#time')
+        var supplier = $('#supplier')
+        var goods = $('#goods')
+        var value = $('#value')
+        var product = $('#product')
+        var status = $('#status')
+        var group = $('#group')
+
+        // Set default time
+        var d = new Date()
+        var t = d.toLocaleTimeString()
+        time.html(t)
+
+        // Set group ID
+        const groupId = qs('groupid')
+        group.html(groupId)
+
+        // Listen on update
+        socket.on('update', data => {
+          var el = $('#' + data.key)
+          if (el.html() !== undefined) {
+            el.html(data.data)
+            el.attr('style', 'background-color: blue; color: white;')
+            nextActionForUpdate(data.next)
+          }
+        })
+
+        function nextActionForUpdate(next) {
+          var nextItem = $('#' + next)
+          if (isNaN(next)) {
+            nextItem.html('???')
+            nextItem.attr('style', 'background-color: red; color: white')
+          } else {
+            product.html(next)
+            product.attr('style', 'background-color: blue; color: white')
+            status.html('Cập nhật thành công')
+            status.attr('style', 'background-color: blue; color: white')
+          }
+        }
+
+        function qs(key) {
+          key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, '\\$&') // escape RegEx control chars
+          var match = location.search.match(
+            new RegExp('[?&]' + key + '=([^&]+)(&|$)')
+          )
+          return match && decodeURIComponent(match[1].replace(/\+/g, ' '))
+        }
+
+        // Listen on reset
+        socket.on('reset', data => {
+          var dataResets = data.data.split(',')
+          for (var dataReset of dataResets) {
+            var el = $('#' + dataReset)
+            el.html('')
+            el.attr('style', '')
+          }
+          product.html('')
+          product.attr('style', '')
+          status.html('')
+          status.attr('style', '')
+          for (var i of masterItem) {
+            var isItem = true
+            for (var j of dataResets) {
+              if (j == i) {
+                isItem = false
+                break
+              }
+            }
+            if (isItem == true) {
+              var el = $('#' + i)
+              el.attr('style', 'background-color: yellow;')
+            }
+          }
+        })
+      })
+    </script>
+  <script type="text/javascript" src="/public/js/main.296b2382.js"></script></body>
 </html>
