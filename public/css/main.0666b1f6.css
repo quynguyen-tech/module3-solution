@@ -41679,10 +41679,10 @@ a.bg-twitter:hover, a.bg-twitter:focus, button.bg-twitter:hover, button.bg-twitt
   color: #fff; }
   .primary-input {
   background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(27, 46, 75, 0.2);
   box-sizing: border-box;
-  border-radius: 5px;
-  height: 60px; }
+  border-radius: 4px;
+  height: 45px; }
   .primary-text {
   color: #ed2957; }
   .text-small {
