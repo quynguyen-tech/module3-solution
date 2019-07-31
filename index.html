@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>BeU</title>
+    <meta name="description" content="Latest updates and statistic charts" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link rel="manifest" href="/public/manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/public/images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/public/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/public/images/favicon-16x16.png"
+    />
+    <link rel="shortcut icon" href="/public/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/react-instantsearch-theme-algolia@4.0.0/style.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+      integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+      crossorigin=""
+      async
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <link rel="shortcut icon" href="/favicon.ico"><link href="/public/css/main.7d3b239d.css" rel="stylesheet"></head>
+
+  <body
+    className="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"
+  >
+    <!-- begin:: Page -->
+    <div id="root"></div>
+    <!-- end:: Page -->
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/jquery/jquery.min.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/jquery.flot/jquery.flot.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/jquery.flot/jquery.flot.stack.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/jquery.flot/jquery.flot.resize.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/jqvmap/jquery.vmap.min.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/dashforge.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/dashforge.aside.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/chart.js/Chart.bundle.min.js"></script>
+    <script src="http://beu.demo.s3-website-us-east-1.amazonaws.com/js/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+    <script>
+      $(function() {
+        // make connection
+        // var socket = io.connect('http://18.212.210.244:8888')
+        const socket = io('http://52.91.188.175:8000/', {
+          transports: ['websocket']
+        })
+        const masterItem = ['monitor', 'supplier', 'goods', 'value']
+
+        var monitor = $('#monitor')
+        var time = $('#time')
+        var supplier = $('#supplier')
+        var goods = $('#goods')
+        var value = $('#value')
+        var product = $('#product')
+        var status = $('#status')
+        var group = $('#group')
+
+        // Set default time
+        var d = new Date()
+        var t = d.toLocaleTimeString()
+        time.html(t)
+
+        // Set group ID
+        const groupId = qs('groupid')
+        group.html(groupId)
+
+        // Listen on update
+        socket.on('update', data => {
+          var el = $('#' + data.key)
+          if (el.html() !== undefined) {
+            el.html(data.data)
+            el.attr('style', 'background-color: blue; color: white;')
+            nextActionForUpdate(data.next)
+          }
+        })
+
+        function nextActionForUpdate(next) {
+          var nextItem = $('#' + next)
+          if (isNaN(next)) {
+            nextItem.html('???')
+            nextItem.attr('style', 'background-color: red; color: white')
+          } else {
+            product.html(next)
+            product.attr('style', 'background-color: blue; color: white')
+            status.html('Cập nhật thành công')
+            status.attr('style', 'background-color: blue; color: white')
+          }
+        }
+
+        function qs(key) {
+          key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, '\\$&') // escape RegEx control chars
+          var match = location.search.match(
+            new RegExp('[?&]' + key + '=([^&]+)(&|$)')
+          )
+          return match && decodeURIComponent(match[1].replace(/\+/g, ' '))
+        }
+
+        // Listen on reset
+        socket.on('reset', data => {
+          var dataResets = data.data.split(',')
+          for (var dataReset of dataResets) {
+            var el = $('#' + dataReset)
+            el.html('')
+            el.attr('style', '')
+          }
+          product.html('')
+          product.attr('style', '')
+          status.html('')
+          status.attr('style', '')
+          for (var i of masterItem) {
+            var isItem = true
+            for (var j of dataResets) {
+              if (j == i) {
+                isItem = false
+                break
+              }
+            }
+            if (isItem == true) {
+              var el = $('#' + i)
+              el.attr('style', 'background-color: yellow;')
+            }
+          }
+        })
+      })
+    </script>
+  <script type="text/javascript" src="/public/js/main.cb0f72ff.js"></script></body>
+</html>
