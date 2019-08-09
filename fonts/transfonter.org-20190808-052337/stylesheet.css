@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Boisterous';
+    src: url('Boisterous.eot');
+    src: url('Boisterous.eot?#iefix') format('embedded-opentype'),
+        url('Boisterous.woff2') format('woff2'),
+        url('Boisterous.woff') format('woff'),
+        url('Boisterous.ttf') format('truetype'),
+        url('Boisterous.svg#Boisterous') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KV-Fujiyama';
+    src: url('FujiyamaPlain.eot');
+    src: url('FujiyamaPlain.eot?#iefix') format('embedded-opentype'),
+        url('FujiyamaPlain.woff2') format('woff2'),
+        url('FujiyamaPlain.woff') format('woff'),
+        url('FujiyamaPlain.ttf') format('truetype'),
+        url('FujiyamaPlain.svg#FujiyamaPlain') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Burbank Big Cd Bd';
+    src: url('BurbankBigCondensed-Bold.eot');
+    src: url('BurbankBigCondensed-Bold.eot?#iefix') format('embedded-opentype'),
+        url('BurbankBigCondensed-Bold.woff2') format('woff2'),
+        url('BurbankBigCondensed-Bold.woff') format('woff'),
+        url('BurbankBigCondensed-Bold.ttf') format('truetype'),
+        url('BurbankBigCondensed-Bold.svg#BurbankBigCondensed-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
